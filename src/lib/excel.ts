@@ -34,7 +34,6 @@ XLSX.set_fs(fs);
 
 const DATABASE_DIR = path.join(process.env.DMC_DATA_DIR || process.cwd(), "database");
 const WORKBOOK_PATH = path.join(DATABASE_DIR, "data.xlsx");
-const TEMP_WORKBOOK_PATH = path.join(DATABASE_DIR, ".data.xlsx.tmp");
 
 /**
  * The 10 sheets requested for the workbook scaffold, with their header
@@ -92,8 +91,12 @@ function loadWorkbook(): XLSX.WorkBook {
 /** Atomic save: write to a temp file, then rename over the real one. */
 function persist(wb: XLSX.WorkBook): void {
   ensureDatabaseDir();
-  XLSX.writeFile(wb, TEMP_WORKBOOK_PATH, { bookType: "xlsx" });
-  fs.renameSync(TEMP_WORKBOOK_PATH, WORKBOOK_PATH);
+  const tempPath = path.join(
+    DATABASE_DIR,
+    `.data.xlsx.${process.pid}.${Date.now()}.${Math.random().toString(36).slice(2)}.tmp`
+  );
+  XLSX.writeFile(wb, tempPath, { bookType: "xlsx" });
+  fs.renameSync(tempPath, WORKBOOK_PATH);
 }
 
 /** Idempotently adds a sheet with the given header row if it doesn't already exist. Called by ExcelTable for every entity so the workbook is self-healing — delete a tab by accident and it comes back empty (headers only) on the next write. */

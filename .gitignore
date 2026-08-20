@@ -14,7 +14,7 @@ next-env.d.ts
 
 # Local "database" — contains real user records and password hashes once the app has run.
 /database/data.xlsx
-/database/.data.xlsx.tmp
+/database/.data.xlsx.*.tmp
 
 # Electron build output
 /electron/dist/
