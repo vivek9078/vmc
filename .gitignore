@@ -1,0 +1,30 @@
+# Dependencies
+/node_modules
+
+# Next.js build output
+/.next/
+/out/
+*.tsbuildinfo
+next-env.d.ts
+
+# Environment variables — never commit real secrets. .env.example is fine and is NOT ignored.
+.env
+.env.local
+.env.*.local
+
+# Local "database" — contains real user records and password hashes once the app has run.
+/database/data.xlsx
+/database/.data.xlsx.tmp
+
+# Electron build output
+/electron/dist/
+/electron/out/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+
+# Vercel (unused here, but harmless to ignore if it ever appears)
+.vercel

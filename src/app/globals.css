@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+/* =============================================================
+   Design tokens — Vietnam DMC internal ERP
+   Deep teal / ocean blue / emerald, premium enterprise SaaS feel
+   ============================================================= */
+
+:root {
+  color-scheme: light;
+
+  --color-bg: #F6F8FA;
+  --color-card: #FFFFFF;
+  --color-border: #E5E7EB;
+
+  --color-teal-900: #063B37;
+  --color-teal-700: #0F5C56;
+  --color-teal-600: #147169;
+  --color-teal-500: #1B8C82;
+  --color-teal-100: #E3F3F1;
+
+  --color-ocean-700: #0B4A7A;
+  --color-ocean-500: #1E6FB8;
+  --color-ocean-100: #E7F1FB;
+
+  --color-emerald-600: #10B77F;
+  --color-emerald-100: #E3FBF1;
+
+  --color-text-primary: #101828;
+  --color-text-secondary: #475467;
+  --color-text-muted: #98A2B3;
+
+  --radius-card: 20px;
+  --radius-control: 10px;
+
+  --shadow-soft: 0 1px 2px rgba(16, 24, 40, 0.04), 0 4px 16px rgba(16, 24, 40, 0.06);
+  --shadow-hover: 0 2px 4px rgba(16, 24, 40, 0.06), 0 12px 32px rgba(16, 24, 40, 0.10);
+  --glow-teal: 0 0 0 4px rgba(27, 140, 130, 0.12);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --color-bg: #0B1220;
+  --color-card: #121A2B;
+  --color-border: #1F2A3D;
+
+  --color-text-primary: #F2F4F7;
+  --color-text-secondary: #9AA4B2;
+  --color-text-muted: #667085;
+
+  --shadow-soft: 0 1px 2px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.35);
+  --shadow-hover: 0 2px 4px rgba(0,0,0,0.35), 0 12px 32px rgba(0,0,0,0.45);
+}
+
+@theme inline {
+  --color-background: var(--color-bg);
+  --color-foreground: var(--color-text-primary);
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-inter), -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Glassmorphism surface used for the topbar and command palette */
+.glass-surface {
+  background: color-mix(in srgb, var(--color-card) 72%, transparent);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+}
+
+.card-surface {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.card-surface:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 8px; }
+
+/* Native <select> dropdown popups otherwise render with the OS/browser's
+   default (light) popup background regardless of `color-scheme`, which is
+   invisible against the light text color set above in dark mode — this is
+   what made the inventory pickers in Create Quotation unreadable. Forcing
+   both the closed control and its <option> list onto the theme's own
+   surface color fixes it in both modes. */
+select, option {
+  background-color: var(--color-card);
+  color: var(--color-text-primary);
+}
